@@ -1,0 +1,1 @@
+python 'My projects'/django/project2/manage.py runserver

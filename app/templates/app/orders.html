@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Orders{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+ <h3>Welcome {{request.user}}</h3>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-primary">Orders</a></li>
+   </ul>
+  </div>
+  
+  <div class="col-sm-9 offset-sm-1">
+    {% for op in order_placed %}
+   <div class="row shadow-sm mb-3">
+    <div class="col-sm-2">
+      <img src="{{op.product.product_image.url}}" class="img-fluid" alt="" height="150" width="150" />
+    </div>
+    <div class="col-sm-7">
+      <p>Product: {{op.product.title}}</p>
+      <p>Quantity: {{op.quantity}}</p>
+      <p>Price: {{op.total_cost}}</p>
+    </div>
+    <div class="col-sm-3 fw-bold">
+      <p>Order Status: {{ob.status}}</p>
+      {% if op.status == 'Accepted'%}
+      <div class="progress">
+        <div class="progress-bar" rolr='progressbar' style="width:20%;" aria-valuenow='20' atia-valuemin='0' aria-valuemax='100'></div>
+      </div>
+      {% endif %}
+      
+      {% if op.status == 'Packed'%}
+      <div class="progress">
+        <div class="progress-bar bg-info" rolr='progressbar' style="width:40%;" aria-valuenow='40' atia-valuemin='0' aria-valuemax='100'></div>
+      </div>
+      {% endif %}
+      
+      {% if op.status == 'On The Way'%}
+      <div class="progress">
+        <div class="progress-bar bg-warning" rolr='progressbar' style="width:70%;" aria-valuenow='70' atia-valuemin='0' aria-valuemax='100'></div>
+      </div>
+      {% endif %}
+      
+      {% if op.status == 'Delivered'%}
+      <div class="progress">
+        <div class="progress-bar bg-success" rolr='progressbar' style="width:100%;" aria-valuenow='100' atia-valuemin='0' aria-valuemax='100'></div>
+      </div>
+      {% endif %}
+    </div>
+   </div>
+   {% endfor %}
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
